@@ -1,0 +1,14 @@
+Django
+django-admin-rangefilter
+django-auditlog
+django-cors-headers
+django-environ
+django-model-utils
+django-ninja
+django-ninja-extra
+django-ninja-jwt
+psycopg
+psycopg-binary
+psycopg-pool
+pendulum==3.0.0b1
+loguru

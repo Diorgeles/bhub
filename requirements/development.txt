@@ -1,0 +1,15 @@
+-r base.txt
+
+black
+isort
+flake8
+ruff
+pytest
+pytest-cov
+pytest-django
+ipython
+pyright
+model-bakery
+Faker
+django-types
+pre-commit

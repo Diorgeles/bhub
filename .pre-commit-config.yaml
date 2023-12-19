@@ -1,0 +1,33 @@
+repos:
+  - repo: local
+    hooks:
+      - id: ruff
+        name: Ruff Check & Fix
+        description: This hook run ruff fix in app files
+        entry: make
+        args: ["check"]
+        language: system
+        types: [python]
+        pass_filenames: false
+        stages: [commit]
+
+      - id: feature-test
+        name: Run Feature Test
+        description: This hook run all app tests
+        entry: make
+        args: ["feature"]
+        language: system
+        types: [python]
+        pass_filenames: false
+        stages: [push]
+
+      - id: unit-test
+        name: Run Unit Test
+        description: This hook run all app tests
+        entry: make
+        args: ["unit"]
+        language: system
+        types: [python]
+        pass_filenames: false
+        stages: [push]
+

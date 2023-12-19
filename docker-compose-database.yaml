@@ -1,0 +1,13 @@
+version: '3.9'
+
+services:
+  psql:
+    container_name: bhub-database-test
+    image: postgres:15.1-alpine
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=bhub_db
+    ports:
+      - "5432:5432"
