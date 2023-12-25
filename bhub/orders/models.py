@@ -3,6 +3,8 @@ from auditlog.registry import auditlog
 from django.db import models
 from model_utils.models import SoftDeletableModel, TimeStampedModel
 
+from bhub.orders.managers import PostPaymentOrderManager
+
 
 class Order(TimeStampedModel, SoftDeletableModel):
     class Meta:
@@ -21,10 +23,11 @@ class Order(TimeStampedModel, SoftDeletableModel):
     amount = models.DecimalField("Valor", max_digits=9, decimal_places=2)
     order_type = models.CharField("Tipo de pedido", choices=ORDER_TYPE, max_length=100)
 
+    objects_post_payment = PostPaymentOrderManager()
     history = AuditlogHistoryField()
 
     def __str__(self):
-        return f"{self.name}"
+        return self.name
 
 
 auditlog.register(Order)
