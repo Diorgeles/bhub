@@ -12,6 +12,7 @@ ENV PYTHONUNBUFFERED 1
 COPY . /backend
 WORKDIR /backend
 
+RUN apk add --no-cache bash
 RUN pip install -r requirements/base.txt
 EXPOSE 8000
 
