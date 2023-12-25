@@ -10,27 +10,48 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import os
+import sys
 from pathlib import Path
+
+import environ
+
+env = environ.Env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+ENVIROMENT = os.environ.get("ENV")
+
+if ENVIROMENT == "dev":
+    environ.Env.read_env(os.path.join(BASE_DIR, ".env.development"))
+elif ENVIROMENT == "prod":
+    environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
+elif ENVIROMENT == "stage":
+    environ.Env.read_env(os.path.join(BASE_DIR, ".env.stage"))
+elif ENVIROMENT == "test":
+    environ.Env.read_env(os.path.join(BASE_DIR, ".env.testing"))
+else:
+    print("Env não encontrada")
+    sys.exit(-1)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-*mwp6o987@a9j4ewsrp_b8y6k!_hv9mhjz)5&&c7d8_63btf2g"
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = []
 
+CORS_ALLOWED_ORIGINS = [env("CORS_ALLOWED_ORIGINS")]
 
 # Application definition
 PROJECT_APPS = [
     "bhub.orders",
+    "bhub.payments",
 ]
 
 THIRD_PARTY_APPS = [
@@ -85,13 +106,17 @@ WSGI_APPLICATION = "bhub.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
+DATABASES = {"default": env.db_url("DATABASE_URL")}
+DATABASES["default"]["CONN_MAX_AGE"] = 600
+DATABASES["default"]["CONN_HEALTH_CHECKS"] = True
+DATABASES["default"]["PORT"] = 5432
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
 
 # Password validation
