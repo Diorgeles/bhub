@@ -107,6 +107,12 @@ cov-html:
 	@echo "#  Export cov test to HTML  #"
 	@echo "#############################"
 	ENV=test $(venv)/pytest --cov --cov-config=pyproject.toml --cov-report html
+ 
+super-user:
+	@echo "#######################"
+	@echo "#  Create super user  #"
+	@echo "#######################"
+	docker-compose exec server bash -c "ENV=$(env) python manage.py createsuperuser --username=diorgeles --email=diorgeles@gmail.com --noinput"
 
 format:
 	@echo "#####################"
