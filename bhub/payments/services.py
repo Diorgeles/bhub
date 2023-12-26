@@ -1,3 +1,3 @@
 class PaymentHelpers:
     def pay_commision(self, order):
-        return dict(detail=f"Pedido {order.id} - gere um pagamento de comissão ao agente")
+        print(f"Pedido {order.id} - gerar um pagamento de comissão ao agente")
