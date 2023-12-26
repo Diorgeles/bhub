@@ -8,4 +8,5 @@ class PaymentManager(Manager, PaymentHelpers):
     def pay(self, order):
         print("Pagamento salvo localmente...")
         print("Executa pagamento...")
+        self.create(description=f"Pagamento de {order.name}", order=order, is_paid=True)
         return Order.objects_post_payment.execute(order)
