@@ -15,7 +15,7 @@
 - Google Cloud SQL Ou Neon - https://neon.tech
     -  Provisionar uma versão de postgres
 
-## Architetura base
+## Arquitetura base
 - Alguns modulos podem funcionar de forma assincrona e com isso é necessario balacear quais funções poderiam ser executadas em filas de processamentos
     - Funções que poderiam ser em filas
         - Processamento de pagamentos
@@ -28,8 +28,7 @@
     - Cada tipo de pedido tem sua regra em uma class, exemplo:
         - Se o pagamento for um *livro* preciso criar uma *guia de remessa* e gerar um *pagamento de comissão*,
         então foi feito uma class separada que só vai lidar com isso, e toda a regra de negocio pode ir nesta class
-- A melhor forma de ver as coisas funcionando é executando os testes unitários, deixei prints pra facilitar o entendimento da ideia
-- Pastas que no mundo real seriam modulos porem foram abstraido nesta solução
+- Pastas que poderiam ser modulos porem foram abstraido nesta solução
     - associates
     - notifications
     - products
@@ -38,9 +37,12 @@
 ## Desenvolvimento
 - O projeto foi desenvolvido sobre o framework Django e roda em um container Docker
 
-- Ao baixar o projeto siga as instruções abaixo
+- Para instalar o projeto siga as instruções abaixo
 
 ```bash
+git clone git@github.com:Diorgeles/bhub.git
+cd bhub
+
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements/base.txt
@@ -51,11 +53,13 @@ pip install -r requirements/base.txt
 ```bash
 make run
 ```
-- O django vai ser executado e será acessar atraves de `http://localhost:8000/admin/`
+- O django vai ser executado e será acessivel atraves de `http://localhost:8000/admin/`
 - Login: admin
 - Senha: admin
 
 ### Para executar os testes unitários siga as instruções abaixo
+
+`- A melhor forma de ver as coisas funcionando é executando os testes unitários, deixei prints pra facilitar o entendimento da ideia`
 
 ```bash
 make run-db
